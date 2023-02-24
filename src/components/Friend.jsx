@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
-
-const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
+import ClearIcon from "@mui/icons-material/Clear";
+const Friend = ({ friendId, name, subtitle, userPicturePath, deletePost }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { _id } = useSelector((state) => state.user);
@@ -20,6 +20,8 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const medium = palette.neutral.medium;
 
   const isFriend = friends.find((friend) => friend._id === friendId);
+
+  const isEditable = _id === friendId ? true : false;
 
   const patchFriend = async () => {
     const response = await fetch(
@@ -36,8 +38,22 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     dispatch(setFriends({ friends: data }));
   };
 
+  const onClickRemove = () => {
+    console.log("shit");
+
+    deletePost();
+    console.log("shit");
+
+    console.log("shit");
+  };
+
   return (
-    <FlexBetween>
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
+      gap="1rem"
+    >
       <FlexBetween gap="1rem">
         <UserImage image={userPicturePath} size="55px" />
         <Box
@@ -64,17 +80,28 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
           </Typography>
         </Box>
       </FlexBetween>
-      <IconButton
-        onClick={() => patchFriend()}
-        sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
-      >
-        {isFriend ? (
-          <PersonRemoveOutlined sx={{ color: primaryDark }} />
-        ) : (
-          <PersonAddOutlined sx={{ color: primaryDark }} />
+      <Box display="flex" sx={{ justifyContent: "flex-end" }}>
+        {!isEditable && (
+          <IconButton
+            onClick={() => patchFriend()}
+            sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
+          >
+            {isFriend ? (
+              <PersonRemoveOutlined sx={{ color: primaryDark }} />
+            ) : (
+              <PersonAddOutlined sx={{ color: primaryDark }} />
+            )}
+          </IconButton>
         )}
-      </IconButton>
-    </FlexBetween>
+        {isEditable && (
+          <Box alignItems="start">
+            <IconButton onClick={onClickRemove}>
+              <ClearIcon />
+            </IconButton>
+          </Box>
+        )}
+      </Box>
+    </Box>
   );
 };
 

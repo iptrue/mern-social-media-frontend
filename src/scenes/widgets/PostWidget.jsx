@@ -22,6 +22,7 @@ const PostWidget = ({
   userPicturePath,
   likes,
   comments,
+  getPosts,
 }) => {
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
@@ -47,6 +48,20 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
+  const deletePost = async () => {
+    const response = await fetch(
+      `http://localhost:3001/posts/${postId}/delete`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    getPosts();
+  };
+
   return (
     <WidgetWrapper m="2rem 0">
       <Friend
@@ -54,6 +69,7 @@ const PostWidget = ({
         name={name}
         subtitle={location}
         userPicturePath={userPicturePath}
+        deletePost={deletePost}
       />
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}

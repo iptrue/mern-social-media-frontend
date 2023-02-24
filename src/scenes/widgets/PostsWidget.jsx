@@ -6,7 +6,6 @@ import PostWidget from "./PostWidget";
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
-  console.log(posts[0], posts[1]);
   const token = useSelector((state) => state.token);
 
   const getPosts = async () => {
@@ -68,6 +67,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
               userPicturePath={userPicturePath}
               likes={likes}
               comments={comments}
+              getPosts={getPosts}
             />
           )
         )}
