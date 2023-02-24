@@ -25,11 +25,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
+import UserImage from "components/UserImage";
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const user = useSelector((state) => state.user);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
@@ -87,8 +89,14 @@ const Navbar = () => {
           <Message sx={{ fontSize: "25px" }} />
           <Notifications sx={{ fontSize: "25px" }} />
           <Help sx={{ fontSize: "25px" }} />
-          <Typography>{user.firstName}</Typography>
-          <LogoutIcon sx={{ fontSize: "25px" }} />
+          <Box display="flex" alignItems="center" gap="1rem">
+            <Typography>{user.firstName}</Typography>
+            <UserImage image={user.picturePath} size="45px" userId={user._id} />
+          </Box>
+
+          <IconButton onClick={() => dispatch(setLogout())}>
+            <LogoutIcon sx={{ fontSize: "25px" }} />
+          </IconButton>
         </FlexBetween>
       ) : (
         <IconButton
