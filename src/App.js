@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Routes,
+  Route,
+  redirect,
+} from "react-router-dom";
 import HomePage from "scenes/homePage";
 import LoginPage from "scenes/loginPage";
 import ProfilePage from "scenes/profilePage";
@@ -19,15 +25,16 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
-            <Route path="/" element={<LoginPage />} />
+            {!isAuth && <Route path="/login" element={<LoginPage />} />}
             <Route
-              path="/home"
-              element={isAuth ? <HomePage /> : <Navigate to="/" />}
+              path="/"
+              element={isAuth ? <HomePage /> : <Navigate to="/login" />}
             />
             <Route
               path="/profile/:userId"
-              element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+              element={isAuth ? <ProfilePage /> : <Navigate to="/login" />}
             />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

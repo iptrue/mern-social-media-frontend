@@ -39,12 +39,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath, deletePost }) => {
   };
 
   const onClickRemove = () => {
-    console.log("shit");
-
     deletePost();
-    console.log("shit");
-
-    console.log("shit");
   };
 
   return (

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 const UserImage = ({ image, size = "60px", userId }) => {
   const navigate = useNavigate();
-  console.log(userId, "userID");
   return (
     <Box width={size} height={size}>
       <IconButton

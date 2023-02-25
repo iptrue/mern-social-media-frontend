@@ -41,6 +41,7 @@ const Navbar = () => {
   const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
+  const main = theme.palette.neutral.main;
 
   const fullName = `${user.firstName} ${user.lastName}`;
 
@@ -89,8 +90,24 @@ const Navbar = () => {
           <Message sx={{ fontSize: "25px" }} />
           <Notifications sx={{ fontSize: "25px" }} />
           <Help sx={{ fontSize: "25px" }} />
-          <Box display="flex" alignItems="center" gap="1rem">
-            <Typography>{user.firstName}</Typography>
+          <Box display="flex" alignItems="center" gap="1rem" margin="0rem 2rem">
+            <Typography
+              onClick={() => {
+                navigate(`/profile/${user._id}`);
+                navigate(0);
+              }}
+              color={main}
+              variant="h5"
+              fontWeight="500"
+              sx={{
+                "&:hover": {
+                  color: primaryLight,
+                  cursor: "pointer",
+                },
+              }}
+            >
+              {user.firstName}
+            </Typography>
             <UserImage image={user.picturePath} size="45px" userId={user._id} />
           </Box>
 
