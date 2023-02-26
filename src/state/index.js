@@ -10,6 +10,7 @@ const initialState = {
   user: null,
   token: null,
   posts: [],
+  comments: [],
 };
 
 export const authSlice = createSlice({
@@ -44,6 +45,9 @@ export const authSlice = createSlice({
       });
       state.posts = updatedPosts;
     },
+    setComments: (state, action) => {
+      state.comments = action.payload.comments;
+    },
   },
 });
 
@@ -54,6 +58,6 @@ export const {
   setFriends,
   setPosts,
   setPost,
-  deletePostFromState,
+  setComments,
 } = authSlice.actions;
 export default authSlice.reducer;

@@ -10,7 +10,7 @@ import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost } from "state";
+import { setPost, setComments } from "state";
 
 const PostWidget = ({
   postId,
@@ -34,7 +34,7 @@ const PostWidget = ({
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
-
+  console.log(comments);
   const patchLike = async () => {
     const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
       method: "PATCH",
@@ -60,6 +60,17 @@ const PostWidget = ({
       }
     );
     getPosts();
+  };
+
+  const getComments = async () => {
+    if (isComments) {
+      const response = await fetch(`http://localhost:3001/comments/${postId}`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+      dispatch(setComments({ comments: data }));
+    }
   };
 
   return (
@@ -114,7 +125,7 @@ const PostWidget = ({
             <Box key={`${name}-${i}`}>
               <Divider />
               <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment}
+                {comment.description}
               </Typography>
             </Box>
           ))}
