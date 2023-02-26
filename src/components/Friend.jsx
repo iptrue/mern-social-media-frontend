@@ -82,9 +82,9 @@ const Friend = ({ friendId, name, subtitle, userPicturePath, deletePost }) => {
             sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
           >
             {isFriend ? (
-              <PersonRemoveOutlined sx={{ color: primaryDark }} />
+              <PersonRemoveOutlined sx={{ color: main }} />
             ) : (
-              <PersonAddOutlined sx={{ color: primaryDark }} />
+              <PersonAddOutlined sx={{ color: main }} />
             )}
           </IconButton>
         )}
