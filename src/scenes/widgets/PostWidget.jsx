@@ -11,6 +11,8 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost, setComments } from "state";
+import Comments from "./Comments";
+import PostComment from "./PostComment";
 
 const PostWidget = ({
   postId,
@@ -119,19 +121,8 @@ const PostWidget = ({
           <ShareOutlined />
         </IconButton>
       </FlexBetween>
-      {isComments && (
-        <Box mt="0.5rem">
-          {comments.map((comment, i) => (
-            <Box key={`${name}-${i}`}>
-              <Divider />
-              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment.description}
-              </Typography>
-            </Box>
-          ))}
-          <Divider />
-        </Box>
-      )}
+      {isComments && <Divider />}
+      {isComments && <Comments comments={comments}></Comments>}
     </WidgetWrapper>
   );
 };

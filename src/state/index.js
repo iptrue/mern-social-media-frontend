@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 let today = new Date();
 let hours = today.getHours();
 let mymode = "dark";
-hours >= 17 ? (mymode = "dark") : (mymode = "light");
+hours >= 17 || hours < 5 ? (mymode = "dark") : (mymode = "light");
 
 const initialState = {
   mode: mymode,
